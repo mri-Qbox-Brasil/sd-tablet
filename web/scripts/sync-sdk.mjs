@@ -6,7 +6,7 @@ const here = dirname(fileURLToPath(import.meta.url));
 const webRoot = resolve(here, '..');
 const phoneWeb = resolve(webRoot, '../../sd-phone/web');
 
-const FILES = ['sdphone-sdk.js', 'sdphone-sdk.d.ts'];
+const FILES = ['sdphone-sdk.js', 'sdphone-sdk.d.ts', 'uploader.html'];
 
 const SOURCES = [
     { dir: join(phoneWeb, 'public'), label: 'sd-phone/web/public (source checkout)' },

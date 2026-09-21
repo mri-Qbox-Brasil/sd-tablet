@@ -33,6 +33,7 @@ files {
     'web/build/index.html',
     'web/build/sdphone-sdk.js',
     'web/build/sdphone-sdk.d.ts',
+    'web/build/uploader.html',
     'web/build/assets/*.js',
     'web/build/assets/*.css',
     'web/build/assets/*.png',
