@@ -10,7 +10,7 @@
 local config = {
     -- Locale file sd-phone's React bundle loads. Keep it the same as sd-phone's configs/config.lua
     -- unless you genuinely want the tablet in another language.
-    Locale = 'en',
+    Locale = 'pt',
 
     -- Keep the screen left-to-right even when the language reads right-to-left.
     -- Arabic mirrors the whole interface by default, the way an Arabic iPad does.
