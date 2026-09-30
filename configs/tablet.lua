@@ -124,7 +124,16 @@ return {
         Carrier      = 'LifeInvader',
         SignalBars   = 4,      -- 0..4, used only when no cell towers are configured in sd-phone
         ShowWifi     = true,
-        BatteryStart = 100,    -- 0..100, ticks down while the tablet is open
+        BatteryStart = 100,    -- 0..100, the percentage the tablet shows when the player loads in
+
+        -- Battery drain. False keeps the battery at BatteryStart for the whole session. True takes
+        -- one percent off every BatteryDrainSeconds while the tablet is open.
+        --
+        -- The battery is purely visual either way. Reaching 0% does NOT switch the tablet off or
+        -- block any app: the icon just shows empty. It never recharges, and it goes back to
+        -- BatteryStart when the player rejoins or the resource restarts.
+        BatteryDrain        = false,
+        BatteryDrainSeconds = 30,  -- seconds of open-tablet time per 1%; 30 empties a full battery in about 50 minutes
 
         -- sd-phone runs Bluetooth from configs/bluetooth.lua but exposes no client export for
         -- "is it configured", so the tablet cannot ask. Mirror sd-phone's Bluetooth.Enabled here.
