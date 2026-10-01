@@ -878,16 +878,21 @@ mirror.bind({
 
 -------------------------------------------------------------------- background
 
--- Cosmetic drain, 1% per 30s while open; the tablet's OWN charge, so the phone's push is dropped.
-CreateThread(function()
-    while true do
-        Wait(30000)
-        if tabletState.open and tabletState.battery > 0 then
-            tabletState.battery = tabletState.battery - 1
-            SendNUIMessage({ action = 'sd-phone:battery', data = tabletState.battery })
+---@type integer Milliseconds between one-percent battery drops (StatusBar.BatteryDrainSeconds, floored at 1s).
+local BATTERY_DRAIN_MS <const> = math.floor(math.max(1, tonumber(cfg.StatusBar.BatteryDrainSeconds) or 30) * 1000)
+
+if cfg.StatusBar.BatteryDrain then
+    -- Cosmetic drain, 1% per BATTERY_DRAIN_MS while open; the tablet's OWN charge, so the phone's push is dropped.
+    CreateThread(function()
+        while true do
+            Wait(BATTERY_DRAIN_MS)
+            if tabletState.open and tabletState.battery > 0 then
+                tabletState.battery = tabletState.battery - 1
+                SendNUIMessage({ action = 'sd-phone:battery', data = tabletState.battery })
+            end
         end
-    end
-end)
+    end)
+end
 
 ---@type table<integer, { obj: integer, color: string }> Server id -> welded local copy + its colour.
 local remoteProps = {}
