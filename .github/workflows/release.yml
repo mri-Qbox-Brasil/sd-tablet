@@ -34,13 +34,18 @@ jobs:
           ref: ${{ github.event.release.tag_name || inputs.tag }}
           path: sd-tablet
 
-      # MRI: o sd-phone vem do nosso fork, na release que vai junto com este tablet.
-      # Atualize o ref quando sair uma release nova do mri-Qbox-Brasil/sd-phone.
+      # MRI: builds against our sd-phone fork's latest release, so a new phone release needs no edit here.
+      - name: Resolve sd-phone release
+        id: phone
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: echo "tag=$(gh release view -R mri-Qbox-Brasil/sd-phone --json tagName -q .tagName)" >> "$GITHUB_OUTPUT"
+
       - name: Check out sd-phone
         uses: actions/checkout@v7
         with:
           repository: mri-Qbox-Brasil/sd-phone
-          ref: v1.0.5-mri.1
+          ref: ${{ steps.phone.outputs.tag }}
           path: sd-phone
 
       - uses: actions/setup-node@v7
